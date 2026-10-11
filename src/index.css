@@ -1,0 +1,162 @@
+@import "tailwindcss";
+
+:root {
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+
+  color: #242821;
+  background-color: #faf7ef;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: #faf7ef;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+@theme {
+  /* Brand */
+  --color-brand: #285C3A;
+  --color-brand-dark: #173F2A;
+  --color-brand-light: #E7F0E8;
+
+  /* Gold */
+  --color-gold: #C79A3B;
+  --color-gold-light: #E8D5A8;
+
+  /* Background */
+  --color-cream: #FAF7EF;
+  --color-white: #FFFFFF;
+
+  /* Buttons */
+  --color-button: #285C3A;
+  --color-button-hover: #173F2A;
+
+  /* Text */
+  --color-text: #242821;
+  --color-text-muted: #667064;
+
+  /* Borders */
+  --color-border: #DDD8C8;
+
+  /* Status */
+  --color-success: #3F7D4A;
+  --color-error: #B94A48;
+
+  /* WhatsApp */
+  --color-whatsapp: #25D366;
+}
+
+
+/* =========================================
+   CHITHU'S GLOBAL COMPONENT STYLES
+   ========================================= */
+
+@layer components {
+  /* Primary CTA buttons */
+  
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  border-radius: 9999px;
+  padding: 1rem 1.75rem;
+  font-weight: 600;
+  color: #ffffff !important;
+  background-color: #063e29 !important;
+  box-shadow: 0 8px 18px rgba(6, 62, 41, 0.16);
+  transition: all 300ms ease;
+}
+
+.btn-primary:hover {
+  color: #ffffff !important;
+  background-color: #285c3a !important;
+  transform: translateY(-2px);
+}
+
+.btn-primary:focus-visible {
+  outline: 2px solid #c79a3b;
+  outline-offset: 4px;
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #285c3a;
+  border-radius: 9999px;
+  padding: 1rem 1.75rem;
+  font-weight: 600;
+  color: #063e29 !important;
+  background-color: #faf7ef !important;
+  transition: all 300ms ease;
+}
+
+.btn-secondary:hover {
+  color: #063e29 !important;
+  background-color: #e7f0e8 !important;
+}
+
+
+  /* Category / filter pills */
+  .category-pill {
+    @apply inline-flex items-center justify-center
+      rounded-full border border-transparent px-5 py-3
+      text-sm font-medium
+      transition-all duration-200;
+
+    background-color: #faf7ef;
+    color: #242821;
+  }
+
+  .category-pill:hover {
+    background-color: #e7f0e8;
+    color: #173f2a;
+  }
+
+  /* Active category / filter */
+  .category-pill-active {
+    @apply inline-flex items-center justify-center
+      rounded-full px-5 py-3
+      text-sm font-semibold
+      shadow-sm transition-all duration-200;
+
+    background-color: #173f2a;
+    color: #ffffff;
+  }
+
+  .category-pill-active:hover {
+    background-color: #285c3a;
+  }
+}
