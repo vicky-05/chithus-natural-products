@@ -18,6 +18,7 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import { supabase } from "../lib/supabaseClient";
+import { useGlobalUI } from "../context/GlobalUIContext";
 
 const emptyForm = {
   full_name: "",
@@ -45,6 +46,7 @@ function getAddressIcon(type) {
 }
 
 export default function MyAddresses() {
+  const { confirm } = useGlobalUI();
   const navigate = useNavigate();
 
   const [user, setUser] = useState(null);
@@ -104,7 +106,7 @@ export default function MyAddresses() {
         if (active) {
           setError(
             err.message ||
-              "We couldn't load your saved addresses. Please try again."
+            "We couldn't load your saved addresses. Please try again."
           );
         }
       } finally {
@@ -268,7 +270,7 @@ export default function MyAddresses() {
     } catch (err) {
       setError(
         err.message ||
-          "We couldn't save your address. Please try again."
+        "We couldn't save your address. Please try again."
       );
     } finally {
       setSaving(false);
@@ -311,14 +313,20 @@ export default function MyAddresses() {
     }
   };
 
+
   const handleDelete = async (address) => {
     if (!user) return;
 
-    const confirmed = window.confirm(
-      `Delete the address for ${address.full_name}?`
-    );
+    const confirmed = await confirm({
+      title: "Delete saved address?",
+      message: `Are you sure you want to delete the address for ${address.full_name}? This action cannot be undone.`,
+      confirmText: "Delete address",
+      cancelText: "Keep address",
+      variant: "danger",
+    });
 
     if (!confirmed) return;
+
 
     setError("");
     setNotice("");
@@ -458,11 +466,10 @@ export default function MyAddresses() {
                   return (
                     <article
                       key={address.id}
-                      className={`rounded-2xl border bg-white p-5 shadow-[0_8px_28px_rgba(40,92,58,0.035)] transition sm:p-6 ${
-                        address.is_default
+                      className={`rounded-2xl border bg-white p-5 shadow-[0_8px_28px_rgba(40,92,58,0.035)] transition sm:p-6 ${address.is_default
                           ? "border-[#9CBCA1]"
                           : "border-[#E9E5D9]"
-                      }`}
+                        }`}
                     >
                       <div className="flex items-start gap-4">
                         <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#E7F0E8] text-[#285C3A]">

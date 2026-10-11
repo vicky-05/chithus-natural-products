@@ -20,7 +20,7 @@ import {
   LoaderCircle,
   RefreshCw,
 } from "lucide-react";
-
+import { useGlobalUI } from "../context/GlobalUIContext";
 import { useCart } from "../context/CartContext";
 import { supabase } from "../lib/supabaseClient";
 import sadCart from "../assets/sad-cart.png";
@@ -562,6 +562,8 @@ export default function Cart() {
     clearCart,
   } = useCart();
 
+  const { notify } = useGlobalUI();
+
   const [recommendedProducts, setRecommendedProducts] = useState([]);
   const [recommendationsLoading, setRecommendationsLoading] =
     useState(false);
@@ -617,7 +619,7 @@ export default function Cart() {
         (sum, item) =>
           sum +
           Number(item.price || 0) *
-            Number(item.quantity || 0),
+          Number(item.quantity || 0),
         0
       ),
     [cartItems]
@@ -678,15 +680,21 @@ export default function Cart() {
   const handleWhatsAppOrder = () => {
     if (cartItems.length === 0) return;
 
+
     if (
       !WHATSAPP_NUMBER ||
       WHATSAPP_NUMBER === "YOUR_WHATSAPP_NUMBER"
     ) {
-      window.alert(
-        "Please configure your business WhatsApp number in Cart.jsx before using WhatsApp ordering."
+      notify(
+        "Please configure your business WhatsApp number before using WhatsApp ordering.",
+        {
+          type: "warning",
+          title: "WhatsApp ordering unavailable",
+        }
       );
       return;
     }
+
 
     const orderLines = cartItems
       .map((item, index) => {
@@ -709,10 +717,9 @@ export default function Cart() {
       orderLines,
       "",
       `Subtotal: ${formatPrice(subtotal)}`,
-      `Delivery: ${
-        deliveryCharge === 0
-          ? "FREE"
-          : formatPrice(deliveryCharge)
+      `Delivery: ${deliveryCharge === 0
+        ? "FREE"
+        : formatPrice(deliveryCharge)
       }`,
       `Total: ${formatPrice(total)}`,
       "",

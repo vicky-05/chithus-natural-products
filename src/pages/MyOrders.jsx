@@ -18,6 +18,7 @@ import {
   Ban,
 } from "lucide-react";
 import { supabase } from "../lib/supabaseClient";
+import { useGlobalUI } from "../context/GlobalUIContext";
 
 const filters = [
   "All Orders",
@@ -482,6 +483,7 @@ function OrderCard({
 
 export default function MyOrders() {
   const [orders, setOrders] = useState([]);
+  const { confirm, notify } = useGlobalUI();
   const [activeFilter, setActiveFilter] = useState("All Orders");
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
@@ -611,25 +613,30 @@ export default function MyOrders() {
     loadOrders();
   }, [loadOrders]);
 
+
   const handleCancelOrder = useCallback(
     async (order) => {
       if (!order?.id || !canCancelOrder(order.status)) {
-        setActionMessage(
-          "This order is no longer eligible for online cancellation."
-        );
+        notify("This order is no longer eligible for online cancellation.", {
+          type: "warning",
+          title: "Cancellation unavailable",
+        });
         return;
       }
 
       const orderLabel = order.order_number || order.id;
 
-      const confirmed = window.confirm(
-        `Are you sure you want to cancel order #${orderLabel}?\n\nThis action cannot be undone.`
-      );
+      const confirmed = await confirm({
+        title: "Cancel this order?",
+        message: `Are you sure you want to cancel order #${orderLabel}?\n\nThis action cannot be undone.`,
+        confirmText: "Cancel order",
+        cancelText: "Keep order",
+        variant: "danger",
+      });
 
       if (!confirmed) return;
 
       setCancellingOrderId(order.id);
-      setActionMessage("");
       setError("");
 
       try {
@@ -659,24 +666,34 @@ export default function MyOrders() {
           );
         }
 
-        setActionMessage(
-          `Order #${data.order_number || orderLabel} was cancelled successfully.`
-        );
-
         await loadOrders();
+
+        notify(
+          `Order #${data.order_number || orderLabel} was cancelled successfully.`,
+          {
+            type: "success",
+            title: "Order cancelled",
+          }
+        );
       } catch (err) {
         console.error("Unable to cancel customer order:", err);
 
-        setActionMessage(
+        notify(
           err.message ||
-          "We couldn't cancel this order. Please contact support if the problem continues."
+          "We couldn't cancel this order. Please contact support if the problem continues.",
+          {
+            type: "error",
+            title: "Cancellation failed",
+            duration: 6000,
+          }
         );
       } finally {
         setCancellingOrderId(null);
       }
     },
-    [loadOrders]
+    [confirm, notify, loadOrders]
   );
+
 
   const counts = useMemo(() => {
     const result = { "All Orders": orders.length };

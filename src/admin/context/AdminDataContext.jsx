@@ -355,6 +355,7 @@ export function AdminDataProvider({ children }) {
 
   const loadCatalogue = useCallback(
     async ({ quiet = false } = {}) => {
+      console.log("[AdminDataContext] loadOrders started");
       if (quiet) {
         setRefreshing(true);
       } else {
@@ -532,6 +533,7 @@ export function AdminDataProvider({ children }) {
         if (fetchError) {
           throw fetchError;
         }
+        
 
         const mappedOrders = (data || []).map(mapOrder);
 

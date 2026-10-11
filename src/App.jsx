@@ -12,6 +12,8 @@ import SpecialOffersTab from "./components/SpecialOffersTab";
 // Context providers
 import { CartProvider } from "./context/CartContext";
 import { WishlistProvider } from "./context/WishlistContext";
+import { GlobalUIProvider } from "./context/GlobalUIContext";
+
 
 // Storefront pages
 import Home from "./pages/Home";
@@ -97,178 +99,180 @@ function StorefrontLayout() {
  */
 function App() {
   return (
-    <CartProvider>
-      <WishlistProvider>
-        <Routes>
-          {/* =========================================
+    <GlobalUIProvider>
+      <CartProvider>
+        <WishlistProvider>
+          <Routes>
+            {/* =========================================
               CUSTOMER STOREFRONT
           ========================================= */}
-          <Route element={<StorefrontLayout />}>
-            {/* Home */}
-            <Route path="/" element={<Home />} />
+            <Route element={<StorefrontLayout />}>
+              {/* Home */}
+              <Route path="/" element={<Home />} />
 
-            {/* =======================================
+              {/* =======================================
                 GUEST-ONLY AUTHENTICATION PAGES
             ======================================= */}
-            <Route element={<GuestRoute />}>
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-            </Route>
+              <Route element={<GuestRoute />}>
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+              </Route>
 
-            {/* Password recovery */}
-            <Route
-              path="/reset-password"
-              element={<ResetPassword />}
-            />
+              {/* Password recovery */}
+              <Route
+                path="/reset-password"
+                element={<ResetPassword />}
+              />
 
-            {/* =======================================
+              {/* =======================================
                 CUSTOMER ACCOUNT
             ======================================= */}
-            <Route path="/my-account" element={<MyAccount />} />
-            <Route path="/my-addresses" element={<MyAddresses />} />
-            <Route path="/orders" element={<MyOrders />} />
-            <Route path="/notifications" element={<Notifications />} />
+              <Route path="/my-account" element={<MyAccount />} />
+              <Route path="/my-addresses" element={<MyAddresses />} />
+              <Route path="/orders" element={<MyOrders />} />
+              <Route path="/notifications" element={<Notifications />} />
 
-            {/* Order tracking */}
-            <Route
-              path="/track-order"
-              element={<TrackOrder />}
-            />
+              {/* Order tracking */}
+              <Route
+                path="/track-order"
+                element={<TrackOrder />}
+              />
 
-            {/* =======================================
+              {/* =======================================
                 SHOPPING
             ======================================= */}
-            <Route path="/shop" element={<Shop />} />
+              <Route path="/shop" element={<Shop />} />
 
-            <Route
-              path="/shop/:category"
-              element={<CategoryPage />}
-            />
+              <Route
+                path="/shop/:category"
+                element={<CategoryPage />}
+              />
 
-            <Route
-              path="/product/:slug"
-              element={<ProductDetails />}
-            />
+              <Route
+                path="/product/:slug"
+                element={<ProductDetails />}
+              />
 
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/wishlist" element={<Wishlist />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/wishlist" element={<Wishlist />} />
 
-            {/* Checkout and order confirmation */}
-            <Route path="/checkout" element={<Checkout />} />
+              {/* Checkout and order confirmation */}
+              <Route path="/checkout" element={<Checkout />} />
 
-            <Route
-              path="/order-success"
-              element={<OrderSuccess />}
-            />
+              <Route
+                path="/order-success"
+                element={<OrderSuccess />}
+              />
 
-            {/* =======================================
+              {/* =======================================
                 INFORMATION PAGES
             ======================================= */}
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/faq" element={<FAQ />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/faq" element={<FAQ />} />
 
-            {/* =======================================
+              {/* =======================================
                 POLICIES
             ======================================= */}
-            <Route
-              path="/shipping-policy"
-              element={<ShippingPolicy />}
-            />
+              <Route
+                path="/shipping-policy"
+                element={<ShippingPolicy />}
+              />
 
-            <Route
-              path="/return-policy"
-              element={<ReturnPolicy />}
-            />
+              <Route
+                path="/return-policy"
+                element={<ReturnPolicy />}
+              />
 
-            <Route
-              path="/privacy-policy"
-              element={<PrivacyPolicy />}
-            />
+              <Route
+                path="/privacy-policy"
+                element={<PrivacyPolicy />}
+              />
 
-            <Route path="/terms" element={<Terms />} />
+              <Route path="/terms" element={<Terms />} />
 
-            {/* Unknown storefront routes */}
-            <Route path="*" element={<NotFound />} />
-          </Route>
+              {/* Unknown storefront routes */}
+              <Route path="*" element={<NotFound />} />
+            </Route>
 
-          {/* =========================================
+            {/* =========================================
               ADMIN LOGIN
           ========================================= */}
-          <Route
-            path="/admin/login"
-            element={<AdminLogin />}
-          />
+            <Route
+              path="/admin/login"
+              element={<AdminLogin />}
+            />
 
-          {/* =========================================
+            {/* =========================================
               PROTECTED ADMIN PANEL
           ========================================= */}
-          <Route
-            path="/admin"
-            element={<AdminRoute />}
-          >
             <Route
-              element={
-                <AdminDataProvider>
-                  <AdminLayout />
-                </AdminDataProvider>
-              }
+              path="/admin"
+              element={<AdminRoute />}
             >
-              <Route index element={<AdminDashboard />} />
+              <Route
+                element={
+                  <AdminDataProvider>
+                    <AdminLayout />
+                  </AdminDataProvider>
+                }
+              >
+                <Route index element={<AdminDashboard />} />
 
-              <Route
-                path="products"
-                element={<AdminProducts />}
-              />
+                <Route
+                  path="products"
+                  element={<AdminProducts />}
+                />
 
-              <Route
-                path="categories"
-                element={<AdminCategories />}
-              />
+                <Route
+                  path="categories"
+                  element={<AdminCategories />}
+                />
 
-              <Route
-                path="orders"
-                element={<AdminOrders />}
-              />
+                <Route
+                  path="orders"
+                  element={<AdminOrders />}
+                />
 
-              <Route
-                path="customers"
-                element={<AdminCustomers />}
-              />
+                <Route
+                  path="customers"
+                  element={<AdminCustomers />}
+                />
 
-              <Route
-                path="reviews"
-                element={<AdminReviews />}
-              />
+                <Route
+                  path="reviews"
+                  element={<AdminReviews />}
+                />
 
-              <Route
-                path="settings"
-                element={<AdminSettings />}
-              />
+                <Route
+                  path="settings"
+                  element={<AdminSettings />}
+                />
 
-              <Route
-                path="reports"
-                element={<AdminReports />}
-              />
+                <Route
+                  path="reports"
+                  element={<AdminReports />}
+                />
 
-              <Route
-                path="announcements"
-                element={<AdminAnnouncements />}
-              />
+                <Route
+                  path="announcements"
+                  element={<AdminAnnouncements />}
+                />
 
-              <Route
-                path="newsletter"
-                element={<AdminNewsletter />}
-              />
-              <Route
-                path="advertisements"
-                element={<AdminAdvertisements />}
-              />
+                <Route
+                  path="newsletter"
+                  element={<AdminNewsletter />}
+                />
+                <Route
+                  path="advertisements"
+                  element={<AdminAdvertisements />}
+                />
+              </Route>
             </Route>
-          </Route>
-        </Routes>
-      </WishlistProvider>
-    </CartProvider>
+          </Routes>
+        </WishlistProvider>
+      </CartProvider>
+    </GlobalUIProvider>
   );
 }
 

@@ -22,6 +22,7 @@ import heroImage from "../assets/dosa-mix-cart.png";
 import { useCart } from "../context/CartContext";
 import { socialLinks } from "../config/socialLinks";
 import { supabase } from "../lib/supabaseClient";
+import { useGlobalUI } from "../context/GlobalUIContext";
 
 const states = ["Tamil Nadu"];
 const PINCODE_LOOKUP_URL = "https://api.postalpincode.in/pincode";
@@ -243,6 +244,7 @@ function getCheckoutIdempotencyKey(customer, items) {
 export default function Checkout() {
   const navigate = useNavigate();
   const { cartItems, cartTotal, clearCart } = useCart();
+  const { notify } = useGlobalUI();
 
   const [completedOrder, setCompletedOrder] = useState(null);
 
@@ -608,8 +610,12 @@ export default function Checkout() {
       !WHATSAPP_NUMBER ||
       WHATSAPP_NUMBER === "YOUR_WHATSAPP_NUMBER"
     ) {
-      window.alert(
-        "Please configure the business WhatsApp number in Checkout.jsx before placing orders."
+      notify(
+        "Please configure the business WhatsApp number before placing orders.",
+        {
+          type: "warning",
+          title: "WhatsApp ordering unavailable",
+        }
       );
       return;
     }
@@ -619,8 +625,13 @@ export default function Checkout() {
     );
 
     if (missingVariant) {
-      window.alert(
-        "Some cart items are missing their Supabase variant IDs. Please remove those items, add them again from the product page, and try again."
+      notify(
+        "Some cart items are missing their Supabase variant IDs. Please remove those items, add them again from the product page, and try again.",
+        {
+          type: "warning",
+          title: "Product information missing",
+          duration: 6000,
+        }
       );
       return;
     }
@@ -633,8 +644,12 @@ export default function Checkout() {
     );
 
     if (invalidQuantity) {
-      window.alert(
-        "One or more product quantities are invalid. Please review your cart."
+      notify(
+        "One or more product quantities are invalid. Please review your cart.",
+        {
+          type: "warning",
+          title: "Invalid quantity",
+        }
       );
       return;
     }
@@ -998,9 +1013,14 @@ Please confirm my order and share the payment details.
         whatsappWindow.close();
       }
 
-      window.alert(
+      notify(
         error?.message ||
-        "We couldn't save your order. Please try again."
+        "We couldn't save your order. Please try again.",
+        {
+          type: "error",
+          title: "Unable to place order",
+          duration: 6000,
+        }
       );
     } finally {
       setIsSubmitting(false);

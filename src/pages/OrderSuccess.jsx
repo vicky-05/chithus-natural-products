@@ -14,6 +14,7 @@ import {
 import { Link, useParams } from "react-router-dom";
 import { socialLinks } from "../config/socialLinks";
 import heroImage from "../assets/chithus-hero.png";
+import { useGlobalUI } from "../context/GlobalUIContext";
 
 // --------------------------------------------------
 // Demo order data
@@ -116,14 +117,26 @@ function OrderProduct({ item }) {
 
 export default function OrderSuccess() {
   const { orderId } = useParams();
+  const { notify } = useGlobalUI();
 
   const displayOrderId = orderId || order.orderId;
 
   const copyOrderId = async () => {
     try {
       await navigator.clipboard.writeText(displayOrderId);
+
+      notify("Order ID copied to clipboard.", {
+        type: "success",
+        title: "Copied successfully",
+      });
     } catch {
-      // Clipboard may be unavailable in some browsers.
+      notify(
+        "Unable to copy the order ID. Please copy it manually.",
+        {
+          type: "error",
+          title: "Copy failed",
+        }
+      );
     }
   };
 
@@ -131,7 +144,13 @@ export default function OrderSuccess() {
     const whatsappUrl = socialLinks.whatsapp;
 
     if (!whatsappUrl) {
-      window.alert("WhatsApp contact is currently unavailable.");
+      notify(
+        "WhatsApp contact is currently unavailable.",
+        {
+          type: "warning",
+          title: "WhatsApp unavailable",
+        }
+      );
       return;
     }
 
