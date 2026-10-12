@@ -61,15 +61,17 @@ const pageTitles = {
   },
 };
 
+
 const allowedRoutes = [
   "/admin",
   "/admin/orders",
   "/admin/products",
   "/admin/categories",
   "/admin/customers",
-  "/admin/reports",
+  "/admin/reviews",
   "/account/orders",
 ];
+
 
 const formatNotificationTime = (value) => {
   if (!value) return "";
