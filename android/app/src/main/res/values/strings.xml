@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Chithu\'s Natural Products</string>
+    <string name="title_activity_main">Chithu\'s Natural Products</string>
+    <string name="package_name">com.chithusnaturalproducts.app</string>
+    <string name="custom_url_scheme">com.chithusnaturalproducts.app</string>
+</resources>
