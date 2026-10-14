@@ -15,6 +15,7 @@ import {
   RefreshCw,
   AlertCircle,
 } from "lucide-react";
+import GoogleTranslate from "./GoogleTranslate";
 
 import navbarLogo from "../assets/chithus-navbar-logo.png";
 import { useCart } from "../context/CartContext";
@@ -239,8 +240,8 @@ function ProductSearch({
         role="search"
         onSubmit={submitSearch}
         className={`relative z-10 flex items-center gap-2 border border-[#DDD8C8] bg-white transition focus-within:border-[#285C3A] focus-within:ring-2 focus-within:ring-[#285C3A]/10 ${mobile
-            ? "h-12 w-full rounded-xl px-3"
-            : "h-11 w-full rounded-full px-4"
+          ? "h-12 w-full rounded-xl px-3"
+          : "h-11 w-full rounded-full px-4"
           }`}
       >
         {mobile && (
@@ -292,8 +293,8 @@ function ProductSearch({
       {showDropdown && (
         <div
           className={`absolute left-0 right-0 top-full z-[300] mt-2 overflow-hidden rounded-2xl border border-[#E2D8C8] bg-[#FFFDF8] shadow-[0_18px_55px_rgba(23,63,42,0.18)] ${mobile
-              ? "max-h-[55vh]"
-              : "left-auto max-h-[min(70vh,460px)] w-[360px] max-w-[calc(100vw-24px)]"
+            ? "max-h-[55vh]"
+            : "left-auto max-h-[min(70vh,460px)] w-[360px] max-w-[calc(100vw-24px)]"
             }`}
         >
           <div className="flex items-center justify-between border-b border-[#E2D8C8] bg-[#FAF7EF] px-4 py-3">
@@ -375,8 +376,8 @@ function ProductSearch({
 
                       <p
                         className={`mt-1 text-[10px] ${product.inStock
-                            ? "text-[#285C3A]"
-                            : "text-[#A33D36]"
+                          ? "text-[#285C3A]"
+                          : "text-[#A33D36]"
                           }`}
                       >
                         {product.inStock ? "In stock" : "Out of stock"}
@@ -685,8 +686,8 @@ function Navbar() {
       {notificationsOpen && (
         <div
           className={`fixed z-[210] overflow-hidden rounded-2xl border border-[#E2D8C8] bg-[#FFFDF8] shadow-[0_18px_55px_rgba(23,63,42,0.18)] ${mobile
-              ? "left-3 right-3 top-[108px] max-h-[calc(100dvh-124px)] w-auto sm:left-auto sm:right-4 sm:top-[112px] sm:w-[370px]"
-              : "absolute right-0 top-full mt-3 max-h-[min(70vh,480px)] w-[370px] max-w-[calc(100vw-24px)]"
+            ? "left-3 right-3 top-[108px] max-h-[calc(100dvh-124px)] w-auto sm:left-auto sm:right-4 sm:top-[112px] sm:w-[370px]"
+            : "absolute right-0 top-full mt-3 max-h-[min(70vh,480px)] w-[370px] max-w-[calc(100vw-24px)]"
             }`}
         >
           <div className="flex items-center justify-between border-b border-[#E2D8C8] bg-[#FAF7EF] px-4 py-4">
@@ -875,8 +876,8 @@ function Navbar() {
                   <span className="min-w-0 flex-1">
                     <span
                       className={`block text-xs leading-5 ${notification.is_read
-                          ? "font-medium text-[#566052]"
-                          : "font-bold text-[#173F2A]"
+                        ? "font-medium text-[#566052]"
+                        : "font-bold text-[#173F2A]"
                         }`}
                     >
                       {notification.title}
@@ -980,6 +981,9 @@ function Navbar() {
               onSelectProduct={handleSelectProduct}
             />
 
+            {/* Language translator */}
+            <GoogleTranslate />
+
             <Link
               to={accountPath}
               aria-label="My account"
@@ -1036,8 +1040,8 @@ function Navbar() {
       {/* Mobile drawer */}
       <div
         className={`fixed inset-0 z-[100] xl:hidden ${mobileMenuOpen
-            ? "visible"
-            : "invisible pointer-events-none"
+          ? "visible"
+          : "invisible pointer-events-none"
           }`}
         aria-hidden={!mobileMenuOpen}
       >
@@ -1053,8 +1057,8 @@ function Navbar() {
         <aside
           aria-label="Mobile navigation"
           className={`absolute right-0 top-0 flex h-full w-[88%] max-w-[390px] flex-col bg-cream shadow-2xl transition-transform duration-300 ease-out ${mobileMenuOpen
-              ? "translate-x-0"
-              : "translate-x-full"
+            ? "translate-x-0"
+            : "translate-x-full"
             }`}
         >
           <div className="flex min-h-[78px] items-center justify-between border-b border-border px-4 sm:px-5">
@@ -1099,6 +1103,10 @@ function Navbar() {
             aria-label="Mobile main navigation"
             className="flex-1 overflow-y-auto px-4 sm:px-5"
           >
+            {/* Language translator */}
+            <div className="border-b border-border py-4">
+              <GoogleTranslate />
+            </div>
             <div className="border-t border-border">
               {navLinks.map((item) => (
                 <Link

@@ -160,3 +160,191 @@ a {
     background-color: #285c3a;
   }
 }
+
+
+/* =========================================
+   LANGUAGE TRANSLATOR — NAVBAR
+   ========================================= */
+
+.navbar-translator {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 90px;
+  max-width: 150px;
+  font-family: inherit;
+  font-size: 13px;
+  position: relative;
+  z-index: 100;
+}
+
+.navbar-translator select {
+  width: auto;
+  max-width: 145px;
+  min-height: 36px;
+  padding: 7px 28px 7px 12px;
+  border: 1px solid #DDD8C8;
+  border-radius: 9999px;
+  background-color: #FAF7EF;
+  color: #285C3A;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  outline-offset: 3px;
+  transition: border-color 200ms ease,
+              background-color 200ms ease;
+}
+
+.navbar-translator select:hover {
+  border-color: #C79A3B;
+  background-color: #FFFFFF;
+}
+
+.navbar-translator select:focus-visible {
+  outline: 2px solid #C79A3B;
+}
+
+/* Keep the page at the top if the widget adds an offset */
+body {
+  top: 0 !important;
+}
+
+/* Hide the classic Google Translate top banner, if present */
+.goog-te-banner-frame {
+  display: none !important;
+}
+
+body > .skiptranslate {
+  display: none !important;
+}
+
+/* Mobile navbar and drawer */
+@media (max-width: 1279px) {
+  .navbar-translator {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .navbar-translator select {
+    max-width: 160px;
+    min-height: 40px;
+    font-size: 13px;
+  }
+}
+
+
+/* Compact language icon in navbar */
+.language-icon-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 120;
+}
+
+.language-icon-button {
+  display: inline-flex;
+  width: 38px;
+  height: 38px;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 50%;
+  color: #285C3A;
+  background: transparent;
+  transition: background-color 180ms ease;
+}
+
+.language-icon-button:hover {
+  background-color: #E7F0E8;
+}
+
+.language-dropdown-panel {
+  display: none;
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 145px;
+  padding: 8px;
+  border: 1px solid #DDD8C8;
+  border-radius: 12px;
+  background: #FAF7EF;
+  box-shadow: 0 8px 24px rgba(23, 63, 42, 0.15);
+}
+
+.language-dropdown-open {
+  display: block;
+}
+
+/* Keep the translation widget compact */
+.language-dropdown-panel .navbar-translator {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.language-dropdown-panel .navbar-translator select {
+  width: 100%;
+  max-width: 100%;
+  min-height: 36px;
+  border-radius: 8px;
+  font-size: 13px;
+}
+
+
+
+.language-dropdown-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 999;
+  min-width: 130px;
+  padding: 6px;
+  border: 1px solid #DDD8C8;
+  border-radius: 12px;
+  background: #FAF7EF;
+  box-shadow: 0 8px 24px rgba(23, 63, 42, 0.15);
+}
+
+.language-dropdown-panel button {
+  padding: 10px 12px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: #285C3A;
+  text-align: left;
+  font-size: 14px;
+}
+
+.language-dropdown-panel button:hover {
+  background: #E7F0E8;
+}
+
+/* Navbar language switcher */
+.navbar-translator {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+}
+
+/* Keep the widget compact */
+.navbar-translator .gtranslate_wrapper {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Style the language selector */
+.navbar-translator select {
+  max-width: 105px;
+  min-height: 36px;
+  padding: 6px 8px 6px 30px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
