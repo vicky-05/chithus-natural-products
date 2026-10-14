@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import heroImage1 from "../assets/chithus-hero.png";
 import heroImage2 from "../assets/chithus-hero-2.png";
-import heroImage3 from "../assets/chithus-hero-3.png";
+import heroImage3 from "../../image-optimization-preview/chithus-hero-3.webp";
 
 const heroSlides = [
   {

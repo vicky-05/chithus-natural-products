@@ -8,11 +8,12 @@ const productImages = import.meta.glob(
     eager: true,
     query: "?url",
     import: "default",
-  }
+  },
 );
 
 const getProductImage = (slug) => {
-  for (const extension of ["png", "jpg", "jpeg", "webp"]) {
+  // Prefer optimized WebP images first.
+  for (const extension of ["webp", "png", "jpg", "jpeg"]) {
     const path = `../assets/products/${slug}.${extension}`;
 
     if (productImages[path]) {
@@ -63,17 +64,12 @@ const products = [
     price: 150,
     weight: "200 g",
     inStock: true,
-    shortDescription:
-      "Traditional pearl millet laddu with a wholesome taste.",
+    shortDescription: "Traditional pearl millet laddu with a wholesome taste.",
     productDetails:
       "Prepared using kambu with traditional methods for an authentic homemade taste.",
     ingredients: "Kambu, jaggery and selected natural ingredients.",
     howToUse: "Ready to eat. Store in a cool and dry place.",
-    benefits: [
-      "Made with millet",
-      "Traditional recipe",
-      "Wholesome snack",
-    ],
+    benefits: ["Made with millet", "Traditional recipe", "Wholesome snack"],
   },
 
   {
@@ -85,8 +81,7 @@ const products = [
     price: 140,
     weight: "200 g",
     inStock: true,
-    shortDescription:
-      "Traditional peanut laddu with a rich nutty flavour.",
+    shortDescription: "Traditional peanut laddu with a rich nutty flavour.",
     productDetails:
       "A classic homemade-style laddu prepared using roasted peanuts and traditional ingredients.",
     ingredients: "Peanuts, jaggery and selected natural ingredients.",
@@ -129,8 +124,7 @@ const products = [
     price: 220,
     weight: "200 g",
     inStock: true,
-    shortDescription:
-      "Rich dry-fruit laddu made for a wholesome sweet treat.",
+    shortDescription: "Rich dry-fruit laddu made for a wholesome sweet treat.",
     productDetails:
       "Prepared with selected dry fruits and traditional ingredients.",
     ingredients: "Dry fruits, jaggery and selected natural ingredients.",
@@ -151,10 +145,8 @@ const products = [
     price: 150,
     weight: "200 g",
     inStock: true,
-    shortDescription:
-      "Traditional moong dal laddu with a homemade taste.",
-    productDetails:
-      "Prepared using moong dal and traditional ingredients.",
+    shortDescription: "Traditional moong dal laddu with a homemade taste.",
+    productDetails: "Prepared using moong dal and traditional ingredients.",
     ingredients: "Moong dal, jaggery and selected natural ingredients.",
     howToUse: "Ready to eat.",
     benefits: [
@@ -195,12 +187,10 @@ const products = [
     price: 170,
     weight: "200 g",
     inStock: true,
-    shortDescription:
-      "Wholesome laddu made with a blend of grains.",
+    shortDescription: "Wholesome laddu made with a blend of grains.",
     productDetails:
       "Prepared with selected grains using a traditional preparation method.",
-    ingredients:
-      "Multiple grains, jaggery and selected natural ingredients.",
+    ingredients: "Multiple grains, jaggery and selected natural ingredients.",
     howToUse: "Ready to eat.",
     benefits: [
       "Made with multiple grains",
@@ -218,8 +208,7 @@ const products = [
     price: 160,
     weight: "200 g",
     inStock: true,
-    shortDescription:
-      "Traditional laddu made with moringa goodness.",
+    shortDescription: "Traditional laddu made with moringa goodness.",
     productDetails:
       "Prepared using moringa and selected traditional ingredients.",
     ingredients: "Moringa, jaggery and selected natural ingredients.",
@@ -240,8 +229,7 @@ const products = [
     price: 150,
     weight: "200 g",
     inStock: true,
-    shortDescription:
-      "Traditional ragi laddu made with wholesome millet.",
+    shortDescription: "Traditional ragi laddu made with wholesome millet.",
     productDetails:
       "Prepared using ragi and traditional ingredients for an authentic taste.",
     ingredients: "Ragi, jaggery and selected natural ingredients.",
@@ -262,18 +250,11 @@ const products = [
     price: 160,
     weight: "200 g",
     inStock: true,
-    shortDescription:
-      "Traditional laddu made with millet rava.",
-    productDetails:
-      "Prepared with millet rava and traditional ingredients.",
-    ingredients:
-      "Millet rava, jaggery and selected natural ingredients.",
+    shortDescription: "Traditional laddu made with millet rava.",
+    productDetails: "Prepared with millet rava and traditional ingredients.",
+    ingredients: "Millet rava, jaggery and selected natural ingredients.",
     howToUse: "Ready to eat.",
-    benefits: [
-      "Millet-based sweet",
-      "Traditional recipe",
-      "Wholesome snack",
-    ],
+    benefits: ["Millet-based sweet", "Traditional recipe", "Wholesome snack"],
   },
 
   // =========================================================
@@ -289,10 +270,8 @@ const products = [
     price: 100,
     weight: "100 g",
     inStock: true,
-    shortDescription:
-      "Traditional pirandai podi prepared for everyday meals.",
-    productDetails:
-      "A traditional powder prepared using selected ingredients.",
+    shortDescription: "Traditional pirandai podi prepared for everyday meals.",
+    productDetails: "A traditional powder prepared using selected ingredients.",
     ingredients: "Pirandai and selected spices.",
     howToUse: "Mix with rice or enjoy with meals.",
     benefits: [
@@ -311,13 +290,11 @@ const products = [
     price: 100,
     weight: "100 g",
     inStock: true,
-    shortDescription:
-      "Traditional curry leaf powder with authentic flavour.",
+    shortDescription: "Traditional curry leaf powder with authentic flavour.",
     productDetails:
       "Prepared using curry leaves and selected traditional spices.",
     ingredients: "Curry leaves and selected spices.",
-    howToUse:
-      "Mix with rice or serve as a side powder.",
+    howToUse: "Mix with rice or serve as a side powder.",
     benefits: [
       "Made with curry leaves",
       "Traditional recipe",
@@ -334,13 +311,10 @@ const products = [
     price: 100,
     weight: "100 g",
     inStock: true,
-    shortDescription:
-      "Flavourful garlic podi for traditional meals.",
-    productDetails:
-      "Prepared using garlic and selected spices.",
+    shortDescription: "Flavourful garlic podi for traditional meals.",
+    productDetails: "Prepared using garlic and selected spices.",
     ingredients: "Garlic and selected spices.",
-    howToUse:
-      "Mix with rice or enjoy with your meal.",
+    howToUse: "Mix with rice or enjoy with your meal.",
     benefits: [
       "Garlic-based traditional powder",
       "Rich flavour",
@@ -357,19 +331,12 @@ const products = [
     price: 100,
     weight: "100 g",
     inStock: true,
-    shortDescription:
-      "Traditional lentil-based idli podi.",
+    shortDescription: "Traditional lentil-based idli podi.",
     productDetails:
       "A classic accompaniment prepared using selected lentils and spices.",
-    ingredients:
-      "Lentils, spices and selected ingredients.",
-    howToUse:
-      "Mix with sesame oil and serve with idli or dosa.",
-    benefits: [
-      "Traditional accompaniment",
-      "Lentil-based",
-      "Easy to prepare",
-    ],
+    ingredients: "Lentils, spices and selected ingredients.",
+    howToUse: "Mix with sesame oil and serve with idli or dosa.",
+    benefits: ["Traditional accompaniment", "Lentil-based", "Easy to prepare"],
   },
 
   {
@@ -381,14 +348,10 @@ const products = [
     price: 110,
     weight: "100 g",
     inStock: true,
-    shortDescription:
-      "Traditional idli podi made with vallarai keerai.",
-    productDetails:
-      "Prepared using vallarai keerai and selected spices.",
-    ingredients:
-      "Vallarai keerai, lentils and spices.",
-    howToUse:
-      "Mix with sesame oil and serve with idli or dosa.",
+    shortDescription: "Traditional idli podi made with vallarai keerai.",
+    productDetails: "Prepared using vallarai keerai and selected spices.",
+    ingredients: "Vallarai keerai, lentils and spices.",
+    howToUse: "Mix with sesame oil and serve with idli or dosa.",
     benefits: [
       "Made with traditional greens",
       "Traditional preparation",
@@ -405,14 +368,11 @@ const products = [
     price: 110,
     weight: "100 g",
     inStock: true,
-    shortDescription:
-      "Traditional idli podi prepared with mudakathan.",
+    shortDescription: "Traditional idli podi prepared with mudakathan.",
     productDetails:
       "Prepared using mudakathan and selected traditional spices.",
-    ingredients:
-      "Mudakathan, lentils and spices.",
-    howToUse:
-      "Mix with sesame oil and serve with idli or dosa.",
+    ingredients: "Mudakathan, lentils and spices.",
+    howToUse: "Mix with sesame oil and serve with idli or dosa.",
     benefits: [
       "Made with traditional greens",
       "Traditional recipe",
@@ -429,13 +389,10 @@ const products = [
     price: 120,
     weight: "100 g",
     inStock: true,
-    shortDescription:
-      "Finely prepared drumstick leaf powder.",
-    productDetails:
-      "Prepared using carefully selected drumstick leaves.",
+    shortDescription: "Finely prepared drumstick leaf powder.",
+    productDetails: "Prepared using carefully selected drumstick leaves.",
     ingredients: "Drumstick leaves.",
-    howToUse:
-      "Use as recommended with food or beverages.",
+    howToUse: "Use as recommended with food or beverages.",
     benefits: [
       "Made from drumstick leaves",
       "Natural ingredient",
@@ -460,10 +417,8 @@ const products = [
       "Traditional malt mix prepared with selected ingredients.",
     productDetails:
       "A wholesome malt mix suitable for preparing a traditional drink.",
-    ingredients:
-      "Selected grains and natural ingredients.",
-    howToUse:
-      "Mix with milk or water and prepare according to preference.",
+    ingredients: "Selected grains and natural ingredients.",
+    howToUse: "Mix with milk or water and prepare according to preference.",
     benefits: [
       "Traditional preparation",
       "Made with selected grains",
@@ -480,12 +435,10 @@ const products = [
     price: 200,
     weight: "250 g",
     inStock: true,
-    shortDescription:
-      "ABC malt made with selected natural ingredients.",
+    shortDescription: "ABC malt made with selected natural ingredients.",
     productDetails:
       "A traditional-style malt mix designed for everyday preparation.",
-    ingredients:
-      "Apple, beetroot, carrot and selected ingredients.",
+    ingredients: "Apple, beetroot, carrot and selected ingredients.",
     howToUse: "Mix with milk or water and serve.",
     benefits: [
       "Made with selected ingredients",
@@ -503,18 +456,11 @@ const products = [
     price: 190,
     weight: "250 g",
     inStock: true,
-    shortDescription:
-      "Beetroot-based malt mix with natural colour.",
-    productDetails:
-      "Prepared using beetroot and selected natural ingredients.",
-    ingredients:
-      "Beetroot and selected grains and ingredients.",
+    shortDescription: "Beetroot-based malt mix with natural colour.",
+    productDetails: "Prepared using beetroot and selected natural ingredients.",
+    ingredients: "Beetroot and selected grains and ingredients.",
     howToUse: "Mix with milk or water and serve.",
-    benefits: [
-      "Made with beetroot",
-      "Natural ingredients",
-      "Easy to prepare",
-    ],
+    benefits: ["Made with beetroot", "Natural ingredients", "Easy to prepare"],
   },
 
   {
@@ -530,14 +476,9 @@ const products = [
       "Carrot-based malt mix prepared with selected ingredients.",
     productDetails:
       "A convenient malt mix prepared using carrot and selected grains.",
-    ingredients:
-      "Carrot and selected grains and ingredients.",
+    ingredients: "Carrot and selected grains and ingredients.",
     howToUse: "Mix with milk or water and serve.",
-    benefits: [
-      "Made with carrot",
-      "Natural ingredients",
-      "Easy to prepare",
-    ],
+    benefits: ["Made with carrot", "Natural ingredients", "Easy to prepare"],
   },
 
   {
@@ -551,16 +492,10 @@ const products = [
     inStock: true,
     shortDescription:
       "Banana-based malt mix with a naturally familiar flavour.",
-    productDetails:
-      "Prepared using banana and selected natural ingredients.",
-    ingredients:
-      "Banana and selected grains and ingredients.",
+    productDetails: "Prepared using banana and selected natural ingredients.",
+    ingredients: "Banana and selected grains and ingredients.",
     howToUse: "Mix with milk or water and serve.",
-    benefits: [
-      "Made with banana",
-      "Natural ingredients",
-      "Easy to prepare",
-    ],
+    benefits: ["Made with banana", "Natural ingredients", "Easy to prepare"],
   },
 
   // =========================================================
@@ -580,10 +515,8 @@ const products = [
       "Pearl millet dosa mix for convenient traditional cooking.",
     productDetails:
       "Prepared using kambu and selected ingredients for easy dosa preparation.",
-    ingredients:
-      "Kambu and selected grains and ingredients.",
-    howToUse:
-      "Mix with water, prepare batter and cook dosa.",
+    ingredients: "Kambu and selected grains and ingredients.",
+    howToUse: "Mix with water, prepare batter and cook dosa.",
     benefits: [
       "Made with millet",
       "Convenient preparation",
@@ -600,14 +533,10 @@ const products = [
     price: 140,
     weight: "500 g",
     inStock: true,
-    shortDescription:
-      "Ragi dosa mix made for convenient everyday cooking.",
-    productDetails:
-      "Prepared using kezhvaragu and selected ingredients.",
-    ingredients:
-      "Kezhvaragu and selected grains and ingredients.",
-    howToUse:
-      "Mix with water, prepare batter and cook dosa.",
+    shortDescription: "Ragi dosa mix made for convenient everyday cooking.",
+    productDetails: "Prepared using kezhvaragu and selected ingredients.",
+    ingredients: "Kezhvaragu and selected grains and ingredients.",
+    howToUse: "Mix with water, prepare batter and cook dosa.",
     benefits: [
       "Made with ragi",
       "Easy preparation",
@@ -624,14 +553,10 @@ const products = [
     price: 150,
     weight: "500 g",
     inStock: true,
-    shortDescription:
-      "Traditional dosa mix prepared with kalyana murungai.",
-    productDetails:
-      "Prepared using kalyana murungai and selected grains.",
-    ingredients:
-      "Kalyana murungai and selected grains and ingredients.",
-    howToUse:
-      "Mix with water, prepare batter and cook dosa.",
+    shortDescription: "Traditional dosa mix prepared with kalyana murungai.",
+    productDetails: "Prepared using kalyana murungai and selected grains.",
+    ingredients: "Kalyana murungai and selected grains and ingredients.",
+    howToUse: "Mix with water, prepare batter and cook dosa.",
     benefits: [
       "Made with traditional ingredients",
       "Convenient preparation",
@@ -648,14 +573,10 @@ const products = [
     price: 150,
     weight: "500 g",
     inStock: true,
-    shortDescription:
-      "Traditional mudakathan dosa mix.",
-    productDetails:
-      "Prepared using mudakathan and selected grains.",
-    ingredients:
-      "Mudakathan and selected grains and ingredients.",
-    howToUse:
-      "Mix with water, prepare batter and cook dosa.",
+    shortDescription: "Traditional mudakathan dosa mix.",
+    productDetails: "Prepared using mudakathan and selected grains.",
+    ingredients: "Mudakathan and selected grains and ingredients.",
+    howToUse: "Mix with water, prepare batter and cook dosa.",
     benefits: [
       "Made with traditional greens",
       "Easy preparation",
@@ -676,18 +597,12 @@ const products = [
     price: 100,
     weight: "100 g",
     inStock: true,
-    shortDescription:
-      "Aromatic masala blend for flavourful chicken dishes.",
+    shortDescription: "Aromatic masala blend for flavourful chicken dishes.",
     productDetails:
       "A traditional-style spice blend prepared for chicken recipes.",
     ingredients: "Selected spices and herbs.",
-    howToUse:
-      "Add as required while preparing chicken dishes.",
-    benefits: [
-      "Aromatic spice blend",
-      "Easy to use",
-      "Traditional flavour",
-    ],
+    howToUse: "Add as required while preparing chicken dishes.",
+    benefits: ["Aromatic spice blend", "Easy to use", "Traditional flavour"],
   },
 
   {
@@ -699,18 +614,11 @@ const products = [
     price: 100,
     weight: "100 g",
     inStock: true,
-    shortDescription:
-      "Traditional spice blend for rich mutton dishes.",
-    productDetails:
-      "Prepared using selected spices for mutton-based recipes.",
+    shortDescription: "Traditional spice blend for rich mutton dishes.",
+    productDetails: "Prepared using selected spices for mutton-based recipes.",
     ingredients: "Selected spices and herbs.",
-    howToUse:
-      "Add as required while preparing mutton dishes.",
-    benefits: [
-      "Rich spice blend",
-      "Easy to use",
-      "Traditional flavour",
-    ],
+    howToUse: "Add as required while preparing mutton dishes.",
+    benefits: ["Rich spice blend", "Easy to use", "Traditional flavour"],
   },
 
   {
@@ -722,13 +630,10 @@ const products = [
     price: 100,
     weight: "100 g",
     inStock: true,
-    shortDescription:
-      "Spice blend specially suited for fish fry recipes.",
-    productDetails:
-      "A flavourful spice blend prepared for fish fry dishes.",
+    shortDescription: "Spice blend specially suited for fish fry recipes.",
+    productDetails: "A flavourful spice blend prepared for fish fry dishes.",
     ingredients: "Selected spices and herbs.",
-    howToUse:
-      "Mix with fish before frying according to recipe.",
+    howToUse: "Mix with fish before frying according to recipe.",
     benefits: [
       "Flavourful spice blend",
       "Easy to use",
@@ -745,13 +650,11 @@ const products = [
     price: 100,
     weight: "100 g",
     inStock: true,
-    shortDescription:
-      "Spice blend for crispy and flavourful Chicken 65.",
+    shortDescription: "Spice blend for crispy and flavourful Chicken 65.",
     productDetails:
       "Prepared using selected spices for Chicken 65-style recipes.",
     ingredients: "Selected spices and herbs.",
-    howToUse:
-      "Mix with chicken according to your recipe.",
+    howToUse: "Mix with chicken according to your recipe.",
     benefits: [
       "Traditional flavour",
       "Easy preparation",
@@ -768,14 +671,11 @@ const products = [
     price: 100,
     weight: "100 g",
     inStock: true,
-    shortDescription:
-      "Aromatic garam masala blend for everyday cooking.",
+    shortDescription: "Aromatic garam masala blend for everyday cooking.",
     productDetails:
       "Prepared using selected spices for a rich aroma and flavour.",
-    ingredients:
-      "Selected whole and ground spices.",
-    howToUse:
-      "Add to curries and other dishes as required.",
+    ingredients: "Selected whole and ground spices.",
+    howToUse: "Add to curries and other dishes as required.",
     benefits: [
       "Aromatic spice blend",
       "Versatile kitchen use",
@@ -792,19 +692,12 @@ const products = [
     price: 100,
     weight: "100 g",
     inStock: true,
-    shortDescription:
-      "Aromatic spice blend for delicious biryani.",
+    shortDescription: "Aromatic spice blend for delicious biryani.",
     productDetails:
       "Prepared using selected spices for traditional biryani flavour.",
-    ingredients:
-      "Selected spices and herbs.",
-    howToUse:
-      "Add while preparing biryani according to your recipe.",
-    benefits: [
-      "Aromatic blend",
-      "Easy to use",
-      "Traditional flavour",
-    ],
+    ingredients: "Selected spices and herbs.",
+    howToUse: "Add while preparing biryani according to your recipe.",
+    benefits: ["Aromatic blend", "Easy to use", "Traditional flavour"],
   },
 
   {
@@ -816,18 +709,12 @@ const products = [
     price: 90,
     weight: "100 g",
     inStock: true,
-    shortDescription:
-      "Finely ground red chilli powder for everyday cooking.",
+    shortDescription: "Finely ground red chilli powder for everyday cooking.",
     productDetails:
       "Prepared from selected red chillies and suitable for everyday cooking.",
     ingredients: "Red chilli.",
-    howToUse:
-      "Use according to taste in your favourite dishes.",
-    benefits: [
-      "Simple everyday spice",
-      "Finely ground",
-      "Easy to use",
-    ],
+    howToUse: "Use according to taste in your favourite dishes.",
+    benefits: ["Simple everyday spice", "Finely ground", "Easy to use"],
   },
 
   // =========================================================
@@ -843,14 +730,11 @@ const products = [
     price: 120,
     weight: "200 g",
     inStock: true,
-    shortDescription:
-      "Noodles prepared using samba wheat.",
+    shortDescription: "Noodles prepared using samba wheat.",
     productDetails:
       "A traditional-grain inspired noodle option prepared for convenient meals.",
-    ingredients:
-      "Samba wheat and selected ingredients.",
-    howToUse:
-      "Cook in boiling water and prepare with your preferred recipe.",
+    ingredients: "Samba wheat and selected ingredients.",
+    howToUse: "Cook in boiling water and prepare with your preferred recipe.",
     benefits: [
       "Made with traditional grain",
       "Convenient meal option",
@@ -867,14 +751,10 @@ const products = [
     price: 140,
     weight: "200 g",
     inStock: true,
-    shortDescription:
-      "Noodles prepared using black rice.",
-    productDetails:
-      "Prepared using black rice and selected ingredients.",
-    ingredients:
-      "Black rice and selected ingredients.",
-    howToUse:
-      "Cook in boiling water and prepare according to your recipe.",
+    shortDescription: "Noodles prepared using black rice.",
+    productDetails: "Prepared using black rice and selected ingredients.",
+    ingredients: "Black rice and selected ingredients.",
+    howToUse: "Cook in boiling water and prepare according to your recipe.",
     benefits: [
       "Made with black rice",
       "Convenient cooking",
@@ -891,19 +771,11 @@ const products = [
     price: 130,
     weight: "200 g",
     inStock: true,
-    shortDescription:
-      "Colourful beetroot noodles for creative meals.",
-    productDetails:
-      "Prepared using beetroot and selected ingredients.",
-    ingredients:
-      "Beetroot and selected ingredients.",
-    howToUse:
-      "Cook in boiling water and prepare according to your recipe.",
-    benefits: [
-      "Made with beetroot",
-      "Naturally colourful",
-      "Easy to prepare",
-    ],
+    shortDescription: "Colourful beetroot noodles for creative meals.",
+    productDetails: "Prepared using beetroot and selected ingredients.",
+    ingredients: "Beetroot and selected ingredients.",
+    howToUse: "Cook in boiling water and prepare according to your recipe.",
+    benefits: ["Made with beetroot", "Naturally colourful", "Easy to prepare"],
   },
 
   {
@@ -917,17 +789,10 @@ const products = [
     inStock: true,
     shortDescription:
       "Carrot-based noodles with a naturally vibrant appearance.",
-    productDetails:
-      "Prepared using carrot and selected ingredients.",
-    ingredients:
-      "Carrot and selected ingredients.",
-    howToUse:
-      "Cook in boiling water and prepare according to your recipe.",
-    benefits: [
-      "Made with carrot",
-      "Naturally colourful",
-      "Easy to prepare",
-    ],
+    productDetails: "Prepared using carrot and selected ingredients.",
+    ingredients: "Carrot and selected ingredients.",
+    howToUse: "Cook in boiling water and prepare according to your recipe.",
+    benefits: ["Made with carrot", "Naturally colourful", "Easy to prepare"],
   },
 
   {
@@ -939,19 +804,11 @@ const products = [
     price: 130,
     weight: "200 g",
     inStock: true,
-    shortDescription:
-      "Ragi-based noodles for convenient everyday meals.",
-    productDetails:
-      "Prepared using kezhvaragu and selected ingredients.",
-    ingredients:
-      "Kezhvaragu and selected ingredients.",
-    howToUse:
-      "Cook in boiling water and prepare according to your recipe.",
-    benefits: [
-      "Made with ragi",
-      "Millet-based option",
-      "Easy to prepare",
-    ],
+    shortDescription: "Ragi-based noodles for convenient everyday meals.",
+    productDetails: "Prepared using kezhvaragu and selected ingredients.",
+    ingredients: "Kezhvaragu and selected ingredients.",
+    howToUse: "Cook in boiling water and prepare according to your recipe.",
+    benefits: ["Made with ragi", "Millet-based option", "Easy to prepare"],
   },
 
   {
@@ -963,14 +820,11 @@ const products = [
     price: 130,
     weight: "200 g",
     inStock: true,
-    shortDescription:
-      "Noodles prepared using selected millets.",
+    shortDescription: "Noodles prepared using selected millets.",
     productDetails:
       "A millet-based noodle option designed for convenient cooking.",
-    ingredients:
-      "Millets and selected ingredients.",
-    howToUse:
-      "Cook in boiling water and prepare according to your recipe.",
+    ingredients: "Millets and selected ingredients.",
+    howToUse: "Cook in boiling water and prepare according to your recipe.",
     benefits: [
       "Made with millets",
       "Convenient meal option",
@@ -987,14 +841,11 @@ const products = [
     price: 140,
     weight: "200 g",
     inStock: true,
-    shortDescription:
-      "Noodles combining kezhvaragu with millet goodness.",
+    shortDescription: "Noodles combining kezhvaragu with millet goodness.",
     productDetails:
       "Prepared using kezhvaragu and selected millet ingredients.",
-    ingredients:
-      "Kezhvaragu, millets and selected ingredients.",
-    howToUse:
-      "Cook in boiling water and prepare according to your recipe.",
+    ingredients: "Kezhvaragu, millets and selected ingredients.",
+    howToUse: "Cook in boiling water and prepare according to your recipe.",
     benefits: [
       "Made with millet",
       "Convenient preparation",
@@ -1015,19 +866,12 @@ const products = [
     price: 130,
     weight: "200 g",
     inStock: true,
-    shortDescription:
-      "Pasta prepared using thinai millet.",
+    shortDescription: "Pasta prepared using thinai millet.",
     productDetails:
       "Prepared using thinai and selected ingredients for convenient cooking.",
-    ingredients:
-      "Thinai and selected ingredients.",
-    howToUse:
-      "Cook in boiling water and serve with your preferred sauce.",
-    benefits: [
-      "Made with millet",
-      "Easy to cook",
-      "Alternative grain option",
-    ],
+    ingredients: "Thinai and selected ingredients.",
+    howToUse: "Cook in boiling water and serve with your preferred sauce.",
+    benefits: ["Made with millet", "Easy to cook", "Alternative grain option"],
   },
 
   {
@@ -1039,19 +883,11 @@ const products = [
     price: 130,
     weight: "200 g",
     inStock: true,
-    shortDescription:
-      "Pasta prepared using pearl millet.",
-    productDetails:
-      "Prepared using kambu and selected ingredients.",
-    ingredients:
-      "Kambu and selected ingredients.",
-    howToUse:
-      "Cook in boiling water and serve with your preferred sauce.",
-    benefits: [
-      "Made with millet",
-      "Easy to cook",
-      "Convenient meal option",
-    ],
+    shortDescription: "Pasta prepared using pearl millet.",
+    productDetails: "Prepared using kambu and selected ingredients.",
+    ingredients: "Kambu and selected ingredients.",
+    howToUse: "Cook in boiling water and serve with your preferred sauce.",
+    benefits: ["Made with millet", "Easy to cook", "Convenient meal option"],
   },
 
   {
@@ -1063,19 +899,11 @@ const products = [
     price: 130,
     weight: "200 g",
     inStock: true,
-    shortDescription:
-      "Ragi-based pasta for convenient everyday meals.",
-    productDetails:
-      "Prepared using kezhvaragu and selected ingredients.",
-    ingredients:
-      "Kezhvaragu and selected ingredients.",
-    howToUse:
-      "Cook in boiling water and serve with your preferred sauce.",
-    benefits: [
-      "Made with ragi",
-      "Easy to cook",
-      "Millet-based option",
-    ],
+    shortDescription: "Ragi-based pasta for convenient everyday meals.",
+    productDetails: "Prepared using kezhvaragu and selected ingredients.",
+    ingredients: "Kezhvaragu and selected ingredients.",
+    howToUse: "Cook in boiling water and serve with your preferred sauce.",
+    benefits: ["Made with ragi", "Easy to cook", "Millet-based option"],
   },
 
   {
@@ -1087,14 +915,10 @@ const products = [
     price: 140,
     weight: "200 g",
     inStock: true,
-    shortDescription:
-      "Pasta prepared using kollu.",
-    productDetails:
-      "Prepared using kollu and selected ingredients.",
-    ingredients:
-      "Kollu and selected ingredients.",
-    howToUse:
-      "Cook in boiling water and serve with your preferred sauce.",
+    shortDescription: "Pasta prepared using kollu.",
+    productDetails: "Prepared using kollu and selected ingredients.",
+    ingredients: "Kollu and selected ingredients.",
+    howToUse: "Cook in boiling water and serve with your preferred sauce.",
     benefits: [
       "Made with traditional ingredient",
       "Easy to cook",
@@ -1111,14 +935,10 @@ const products = [
     price: 140,
     weight: "200 g",
     inStock: true,
-    shortDescription:
-      "Pasta prepared using karamani.",
-    productDetails:
-      "Prepared using karamani and selected ingredients.",
-    ingredients:
-      "Karamani and selected ingredients.",
-    howToUse:
-      "Cook in boiling water and serve with your preferred sauce.",
+    shortDescription: "Pasta prepared using karamani.",
+    productDetails: "Prepared using karamani and selected ingredients.",
+    ingredients: "Karamani and selected ingredients.",
+    howToUse: "Cook in boiling water and serve with your preferred sauce.",
     benefits: [
       "Made with traditional ingredient",
       "Easy to cook",
@@ -1126,7 +946,6 @@ const products = [
     ],
   },
 ];
-
 
 // =========================================================
 // HOME PAGE PRODUCT & BADGE SETTINGS

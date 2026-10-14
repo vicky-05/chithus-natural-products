@@ -19,7 +19,9 @@ function WhatsAppButton() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat with Chithu's Natural Products on WhatsApp"
-      className="group fixed bottom-5 right-5 z-[100] flex items-center gap-3 sm:bottom-6 sm:right-6"
+
+      className="group fixed bottom-[calc(66px+env(safe-area-inset-bottom)+12px)] right-4 z-[80] flex items-center gap-3 transition-all duration-300 sm:bottom-6 sm:right-6 sm:z-[100]"
+
     >
       {/* Label */}
       <span className="hidden rounded-full bg-white px-4 py-2.5 text-xs font-semibold text-[#242821] shadow-[0_8px_30px_rgba(0,0,0,0.12)] transition-all duration-300 group-hover:-translate-x-1 sm:block">

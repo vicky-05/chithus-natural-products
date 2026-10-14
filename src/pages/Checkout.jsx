@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState, useRef } from "react";
 import {
   ArrowLeft,
   ArrowRight,
@@ -23,6 +23,8 @@ import { useCart } from "../context/CartContext";
 import { socialLinks } from "../config/socialLinks";
 import { supabase } from "../lib/supabaseClient";
 import { useGlobalUI } from "../context/GlobalUIContext";
+import { AppLauncher } from "@capacitor/app-launcher";
+import { Capacitor } from "@capacitor/core";
 
 const states = ["Tamil Nadu"];
 const PINCODE_LOOKUP_URL = "https://api.postalpincode.in/pincode";
@@ -262,6 +264,7 @@ export default function Checkout() {
 
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const submissionLock = useRef(false);
   useEffect(() => {
     if (!isSubmitting) return undefined;
 
@@ -591,7 +594,7 @@ export default function Checkout() {
   };
 
   const handlePlaceOrder = async () => {
-    if (isSubmitting) return;
+    if (submissionLock.current || isSubmitting) return;
 
     if (checkoutItems.length === 0) {
       navigate("/shop");
@@ -655,6 +658,7 @@ export default function Checkout() {
     }
 
     setIsSubmitting(true);
+    submissionLock.current = true;
     setAddressMessage("");
 
     // Open synchronously to reduce browser popup blocking.
@@ -970,23 +974,56 @@ Please confirm my order and share the payment details.
       // IMPORTANT:
       // Redirect the temporary tab to WhatsApp instead of closing it.
       // Keep the original checkout tab available for the success screen.
-      let whatsappOpened = false;
 
-      if (whatsappWindow && !whatsappWindow.closed) {
-        try {
-          whatsappWindow.location.replace(whatsappUrl);
-          whatsappOpened = true;
-        } catch (redirectError) {
-          console.warn(
-            "Unable to redirect the WhatsApp tab:",
-            redirectError
-          );
-        }
-      }
-
-      // Show the saved-order confirmation in the original tab.
+      // Show order success immediately after Supabase confirms the order.
+      // WhatsApp launching must not block the checkout success screen.
       setCompletedOrder(confirmation);
       clearCart();
+
+      // Open WhatsApp using the native Android launcher when available.
+      try {
+        if (whatsappWindow && !whatsappWindow.closed) {
+          whatsappWindow.close();
+        }
+
+        if (Capacitor.isNativePlatform()) {
+          const { value: canOpenWhatsApp } =
+            await AppLauncher.canOpenUrl({
+              url: "whatsapp://send",
+            });
+
+          if (canOpenWhatsApp) {
+            await AppLauncher.openUrl({
+              url: whatsappUrl,
+            });
+          } else {
+            notify(
+              "Your order was saved. Please open WhatsApp using the button on the confirmation screen.",
+              {
+                type: "info",
+                title: "Order saved successfully",
+                duration: 6000,
+              }
+            );
+          }
+        } else if (whatsappWindow && !whatsappWindow.closed) {
+          whatsappWindow.location.replace(whatsappUrl);
+        } else {
+          window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+        }
+      } catch (whatsappError) {
+        console.warn("Unable to open WhatsApp:", whatsappError);
+
+        notify(
+          "Your order was saved successfully. You can contact us through WhatsApp from the confirmation screen.",
+          {
+            type: "info",
+            title: "Order saved successfully",
+            duration: 6000,
+          }
+        );
+      }
+
 
       // If the popup was blocked, the existing confirmation screen
       // can still provide its WhatsApp button.
@@ -1023,7 +1060,9 @@ Please confirm my order and share the payment details.
         }
       );
     } finally {
+      submissionLock.current = false;
       setIsSubmitting(false);
+
     }
   };
   // Processing screen while the order is being saved.

@@ -1,5 +1,15 @@
 
-import { Routes, Route, Outlet, useLocation } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  Outlet,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
+
+import { App as CapacitorApp } from "@capacitor/app";
+import { Capacitor } from "@capacitor/core";
+import { useEffect } from "react";
 
 // Storefront layout components
 import Navbar from "./components/Navbar";
@@ -25,6 +35,7 @@ import Checkout from "./pages/Checkout";
 import OrderSuccess from "./pages/OrderSuccess";
 import Wishlist from "./pages/Wishlist";
 import AdvertisementPopup from "./components/AdvertisementPopup";
+import NetworkStatus from "./components/NetworkStatus";
 
 // Authentication and customer account pages
 import Register from "./pages/Register";
@@ -75,6 +86,7 @@ function StorefrontLayout() {
 
   return (
     <div className="min-h-screen bg-cream pb-[calc(66px+env(safe-area-inset-bottom))] xl:pb-0">
+      <NetworkStatus />
       {/* Session-based advertisement popup */}
       <AdvertisementPopup />
 
@@ -98,6 +110,57 @@ function StorefrontLayout() {
  * Application routes.
  */
 function App() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  
+useEffect(() => {
+  if (!Capacitor.isNativePlatform()) return;
+
+  let isActive = true;
+  let backButtonListener = null;
+
+  const setupBackButton = async () => {
+    try {
+      const listener = await CapacitorApp.addListener(
+        "backButton",
+        ({ canGoBack }) => {
+          if (canGoBack) {
+            navigate(-1);
+            return;
+          }
+
+          if (location.pathname === "/") {
+            CapacitorApp.exitApp();
+            return;
+          }
+
+          navigate("/", { replace: true });
+        }
+      );
+
+      if (isActive) {
+        backButtonListener = listener;
+      } else {
+        await listener.remove();
+      }
+    } catch (error) {
+      console.error("Failed to register Android back button:", error);
+    }
+  };
+
+  setupBackButton();
+
+  return () => {
+    isActive = false;
+
+    if (backButtonListener) {
+      backButtonListener.remove();
+      backButtonListener = null;
+    }
+  };
+}, [navigate, location.pathname]);
+
   return (
     <GlobalUIProvider>
       <CartProvider>

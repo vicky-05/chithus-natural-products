@@ -17,7 +17,7 @@ import {
 } from "lucide-react";
 import GoogleTranslate from "./GoogleTranslate";
 
-import navbarLogo from "../assets/chithus-navbar-logo.png";
+import navbarLogo from "../../image-optimization-preview/chithus-navbar-logo.webp";
 import { useCart } from "../context/CartContext";
 import { useWishlist } from "../context/WishlistContext";
 import { supabase } from "../lib/supabaseClient";

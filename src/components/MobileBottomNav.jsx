@@ -1,5 +1,5 @@
 
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import {
   House,
   LayoutGrid,
@@ -7,26 +7,29 @@ import {
   ShoppingBag,
   UserRound,
 } from "lucide-react";
+import { useEffect, useState } from "react";
 
 import { useCart } from "../context/CartContext";
 import { useWishlist } from "../context/WishlistContext";
 import { supabase } from "../lib/supabaseClient";
-import { useEffect, useState } from "react";
 
 export default function MobileBottomNav() {
   const { cartCount } = useCart();
   const { wishlistCount } = useWishlist();
-  const navigate = useNavigate();
   const [isSignedIn, setIsSignedIn] = useState(false);
 
   useEffect(() => {
     let active = true;
 
     const loadSession = async () => {
-      const { data } = await supabase.auth.getSession();
+      try {
+        const { data } = await supabase.auth.getSession();
 
-      if (active) {
-        setIsSignedIn(Boolean(data.session?.user));
+        if (active) {
+          setIsSignedIn(Boolean(data.session?.user));
+        }
+      } catch (error) {
+        console.error("Unable to load navigation session:", error);
       }
     };
 
@@ -96,47 +99,46 @@ export default function MobileBottomNav() {
               end={item.end}
               aria-label={item.label}
               className={({ isActive }) =>
-                `relative flex min-w-0 flex-col items-center justify-center gap-1 rounded-xl transition-colors ${
-                  isActive
-                    ? "text-[#285C3A]"
-                    : "text-[#777D71] hover:text-[#285C3A]"
+                `relative flex min-h-[48px] min-w-0 flex-col items-center justify-center gap-1 rounded-xl px-0.5 transition-colors focus-visible:z-10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-3px] focus-visible:outline-[#C79A3B] ${isActive
+                  ? "text-[#285C3A]"
+                  : "text-[#777D71] hover:text-[#285C3A]"
                 }`
               }
             >
               {({ isActive }) => (
                 <>
                   <span
-                    className={`relative flex h-7 w-9 items-center justify-center rounded-full transition-colors ${
-                      isActive ? "bg-[#E7F0E8]" : ""
-                    }`}
+                    className={`relative flex h-8 w-10 shrink-0 items-center justify-center rounded-full transition-colors ${isActive ? "bg-[#E7F0E8]" : ""
+                      }`}
                   >
                     <Icon
-                      size={21}
+                      size={22}
                       strokeWidth={isActive ? 2.2 : 1.7}
-                      className={
-                        item.label === "Wishlist" && isActive
-                          ? "fill-[#E7F0E8]"
-                          : ""
-                      }
+                      aria-hidden="true"
                     />
 
                     {Number(item.badge) > 0 && (
-                      <span className="absolute -right-1 -top-1 flex h-[17px] min-w-[17px] items-center justify-center rounded-full bg-[#C79A3B] px-1 text-[9px] font-bold text-white ring-2 ring-cream">
+                      <span
+                        aria-label={`${item.badge} ${item.label === "Cart" ? "items in cart" : "items in wishlist"}`}
+                        className="absolute -right-1 -top-1 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-[#C79A3B] px-1 text-[10px] font-bold leading-none text-white ring-2 ring-cream"
+                      >
                         {item.badge > 99 ? "99+" : item.badge}
                       </span>
                     )}
                   </span>
 
                   <span
-                    className={`max-w-full truncate text-[10px] leading-3 ${
-                      isActive ? "font-bold" : "font-medium"
-                    }`}
+                    className={`max-w-full truncate text-[10px] leading-3 ${isActive ? "font-bold" : "font-medium"
+                      }`}
                   >
                     {item.label}
                   </span>
 
                   {isActive && (
-                    <span className="absolute bottom-0 h-[3px] w-6 rounded-t-full bg-[#285C3A]" />
+                    <span
+                      aria-hidden="true"
+                      className="absolute bottom-0 h-[3px] w-6 rounded-t-full bg-[#285C3A]"
+                    />
                   )}
                 </>
               )}
